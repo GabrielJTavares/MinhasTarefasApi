@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MinhasTarefasAPI</name>
+    </assembly>
+    <members>
+        <member name="M:MinhasTarefasAPI.V1.Controllers.TarefaController.Sincronizacao(System.Collections.Generic.List{MinhasTarefasAPI.V1.Models.Tarefa})">
+            <summary>
+            Verifica qual tarefa esta o app e não está no banco
+            </summary>
+            <param name="tarefas">lista de tarefas</param>
+            <returns></returns>
+        </member>
+        <member name="M:MinhasTarefasAPI.V1.Controllers.TarefaController.Restaurar(System.DateTime)">
+            <summary>
+            faz a restauração
+            </summary>
+            <param name="data"></param>
+            <returns></returns>
+        </member>
+        <member name="M:MinhasTarefasAPI.V1.Controllers.UsuarioController.Login(MinhasTarefasAPI.V1.Models.UsuarioDTO)">
+            <summary>
+            Faz o Login
+            </summary>
+            <param name="usuarioDTO">Email</param>
+            <returns>retorna um token</returns>
+        </member>
+        <member name="M:MinhasTarefasAPI.V1.Controllers.UsuarioController.Renovar(MinhasTarefasAPI.V1.Models.TokenDTO)">
+            <summary>
+            faz a renovação do token para não ser necessario um novo login
+            </summary>
+            <param name="tokenDTO">token</param>
+            <returns>um novo token</returns>
+        </member>
+        <member name="M:MinhasTarefasAPI.V1.Controllers.UsuarioController.Cadastrar(MinhasTarefasAPI.V1.Models.UsuarioDTO)">
+            <summary>
+            Cadastra um novo usuario
+            </summary>
+            <param name="usuarioDTO">email</param>
+            <returns>o novo usuario</returns>
+        </member>
+    </members>
+</doc>

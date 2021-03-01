@@ -9,8 +9,8 @@ using MinhasTarefasAPI.DataBase;
 namespace MinhasTarefasAPI.Migrations
 {
     [DbContext(typeof(ApiContext))]
-    [Migration("20210225090320_TarefaSincronizacao")]
-    partial class TarefaSincronizacao
+    [Migration("20210301132335_alteraNome")]
+    partial class alteraNome
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -243,9 +243,6 @@ namespace MinhasTarefasAPI.Migrations
                     b.Property<string>("Local")
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("MyProperty")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Tipo")
                         .HasColumnType("TEXT");
 
@@ -260,6 +257,40 @@ namespace MinhasTarefasAPI.Migrations
                     b.HasIndex("UsuarioId");
 
                     b.ToTable("Tarefas");
+                });
+
+            modelBuilder.Entity("MinhasTarefasAPI.Models.Token", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime?>("Atualizado")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("Criado")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("ExpirtationRefreshToken")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("ExpirtationToken")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("RefreshToken")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UsuarioId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("Utilizado")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Tokens");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -322,9 +353,20 @@ namespace MinhasTarefasAPI.Migrations
                     b.Navigation("Usuario");
                 });
 
+            modelBuilder.Entity("MinhasTarefasAPI.Models.Token", b =>
+                {
+                    b.HasOne("MinhasTarefasAPI.Models.ApplicationUser", "Usuario")
+                        .WithMany("Tokens")
+                        .HasForeignKey("UsuarioId");
+
+                    b.Navigation("Usuario");
+                });
+
             modelBuilder.Entity("MinhasTarefasAPI.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Tarefas");
+
+                    b.Navigation("Tokens");
                 });
 #pragma warning restore 612, 618
         }

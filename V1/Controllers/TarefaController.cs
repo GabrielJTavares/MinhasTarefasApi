@@ -6,13 +6,15 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using MinhasTarefasAPI.Models;
-using MinhasTarefasAPI.Repositories.Contracts;
+using MinhasTarefasAPI.V1.Models;
+using MinhasTarefasAPI.V1.Repositories.Contracts;
+using Newtonsoft.Json;
 
-namespace MinhasTarefasAPI.Controllers
+namespace MinhasTarefasAPI.V1.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiVersion("1.0")]
     public class TarefaController : ControllerBase
     {
         private readonly ITarefaRepository _tarefaRepository;
@@ -22,18 +24,23 @@ namespace MinhasTarefasAPI.Controllers
             _tarefaRepository = tarefaRepository;
             _usermanager = usermanager;
         }
-        [Authorize]
+        /// <summary>
+        /// Verifica qual tarefa esta o app e não está no banco
+        /// </summary>
+        /// <param name="tarefas">lista de tarefas</param>
+        /// <returns></returns>
         [HttpPost("Sincronizacao")]
+        [Authorize]
         public ActionResult Sincronizacao([FromBody]List<Tarefa> tarefas)
         {
+            
             return Ok(_tarefaRepository.Sincronizacao(tarefas));
         }
-
-        [HttpGet("modelo")]
-        public ActionResult Modelo()
-        {
-            return Ok(new Tarefa());
-        }
+        /// <summary>
+        /// faz a restauração
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpGet("restaurar")]
         public ActionResult Restaurar(DateTime data)

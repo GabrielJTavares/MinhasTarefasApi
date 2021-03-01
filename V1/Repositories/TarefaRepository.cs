@@ -1,12 +1,12 @@
 ﻿using MinhasTarefasAPI.DataBase;
-using MinhasTarefasAPI.Models;
-using MinhasTarefasAPI.Repositories.Contracts;
+using MinhasTarefasAPI.V1.Models;
+using MinhasTarefasAPI.V1.Repositories.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MinhasTarefasAPI.Repositories
+namespace MinhasTarefasAPI.V1.Repositories
 {
     public class TarefaRepository : ITarefaRepository
     {
@@ -29,18 +29,20 @@ namespace MinhasTarefasAPI.Repositories
 
         public List<Tarefa> Sincronizacao(List<Tarefa> tarefas)
         {
-            var novasTarefas = tarefas.Where(a => a.IdTarefaApi == 0).ToList();
+           
+            var novasTarefas = tarefas.Where(a => a.IdTarefaApi == 0).ToList();            
             var TarefasAtualizadas = tarefas.Where(a => a.IdTarefaApi != 0).ToList();
+
             if (novasTarefas.Count() > 0)
             {
                 foreach (var tarefa in novasTarefas)
                 {
                     _banco.Tarefas.Add(tarefa);
                 }
-                
+
             }
 
-            
+
             if (TarefasAtualizadas.Count() > 0)
             {
                 foreach (var item in TarefasAtualizadas)
@@ -48,7 +50,7 @@ namespace MinhasTarefasAPI.Repositories
                     _banco.Tarefas.Update(item);
 
                 }
-              
+
             }
             _banco.SaveChanges();
 
